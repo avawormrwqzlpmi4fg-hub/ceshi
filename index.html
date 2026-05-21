@@ -3,192 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Whale Alpha | Elite Private Circle</title>
+    <title>Crypto Alpha Terminal | Institutional Whale Signals</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* ==========================================
-           1. 全局变量与基础重置 (Crypto Dark Theme)
-           ========================================== */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
+        /* CSS 全局变量：极致暗黑赛博风 (Crypto Dark Mode) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
         :root {
             --bg-deep: #05070a;
             --bg-card: #0d131f;
-            --bg-card-alt: #121a2b;
+            --bg-card-hover: #151e32;
             --cyber-green: #00ff66;
-            --cyber-green-glow: rgba(0, 255, 102, 0.3);
-            --fomo-red: #ff3366;
+            --cyber-green-glow: rgba(0, 255, 102, 0.4);
             --crypto-gold: #f7931a;
             --text-main: #ffffff;
             --text-muted: #8b9bb4;
             --border-line: #1c2638;
-            --container-width: 1000px; /* 销售信排版，容器稍窄更聚光 */
+            --container-width: 1100px;
         }
 
-        body { background-color: var(--bg-deep); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
-        .container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* ==========================================
-           2. 核心转化按钮 (WhatsApp CTA)
-           ========================================== */
+        .container {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 强引流核心：呼吸发光质感的 WhatsApp 按钮 */
         .btn-whatsapp {
-            display: inline-flex; align-items: center; justify-content: center;
-            background-color: var(--cyber-green); color: #000;
-            padding: 18px 36px; border-radius: 8px; font-size: 19px; font-weight: 800;
-            text-transform: uppercase; text-decoration: none;
-            transition: all 0.3s ease; box-shadow: 0 0 25px var(--cyber-green-glow);
-            border: 1px solid #ccffdd; cursor: pointer; width: 100%; max-width: 480px; letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cyber-green);
+            color: #000000;
+            padding: 18px 36px;
+            border-radius: 8px;
+            font-size: 19px;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px var(--cyber-green-glow);
+            border: 1px solid #ccffdd;
+            cursor: pointer;
+            width: 100%;
+            max-width: 480px;
+            letter-spacing: 0.5px;
         }
-        .btn-whatsapp i { margin-right: 12px; font-size: 26px; }
-        .btn-whatsapp:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 40px var(--cyber-green-glow); background-color: #33ff85; }
 
-        /* ==========================================
-           3. 模块 1：巨鲸情报跑马灯 (Intel Ticker)
-           ========================================== */
-        .ticker-wrap {
-            width: 100%; background: #000; border-bottom: 1px solid var(--border-line);
-            padding: 8px 0; overflow: hidden; position: relative; z-index: 100;
+        .btn-whatsapp i {
+            margin-right: 12px;
+            font-size: 26px;
         }
-        .ticker-track {
-            display: flex; white-space: nowrap; animation: ticker 25s linear infinite;
-        }
-        .ticker-item {
-            color: var(--text-muted); font-size: 13px; font-weight: 600; margin-right: 40px; font-family: 'Space Grotesk', sans-serif;
-        }
-        .ticker-item span.red { color: var(--fomo-red); }
-        .ticker-item span.green { color: var(--cyber-green); }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* ==========================================
-           4. 模块 2：权威爆发首屏 (Hero Section)
-           ========================================== */
-        .hero { padding: 80px 0 60px 0; text-align: center; background: radial-gradient(circle at center top, rgba(0, 255, 102, 0.05) 0%, transparent 70%); }
-        .trust-badge {
-            display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-line); padding: 8px 16px; border-radius: 50px; font-size: 13px; color: var(--text-muted); margin-bottom: 30px;
+        .btn-whatsapp:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 40px var(--cyber-green-glow);
+            background-color: #33ff85;
         }
-        .trust-badge .stars { color: var(--crypto-gold); }
-        .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 56px; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
-        .hero h1 span { color: var(--cyber-green); }
-        .hero p { font-size: 19px; color: var(--text-muted); max-width: 760px; margin: 0 auto 40px auto; }
 
-        /* ==========================================
-           5. 模块 3：痛点暴击网格 (Features Grid)
-           ========================================== */
-        .features-section { padding: 60px 0; }
-        .section-title { text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 36px; margin-bottom: 50px; }
-        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .feature-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 35px; border-radius: 16px; }
-        .feature-icon { font-size: 32px; color: var(--cyber-green); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 22px; margin-bottom: 12px; font-family: 'Space Grotesk', sans-serif; }
-        .feature-card p { font-size: 15px; color: var(--text-muted); }
-
-        /* ==========================================
-           6. 模块 4：仿真 WhatsApp 实况 (Mockup)
-           ========================================== */
-        .mockup-section { padding: 60px 0; background-color: var(--bg-card-alt); border-top: 1px solid var(--border-line); border-bottom: 1px solid var(--border-line); }
-        .mockup-container { display: flex; align-items: center; justify-content: center; gap: 50px; }
-        .mockup-text { flex: 1; }
-        .mockup-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 38px; margin-bottom: 20px; }
-        .mockup-text p { font-size: 17px; color: var(--text-muted); margin-bottom: 30px; }
-        .mockup-phone {
-            width: 320px; background: #000; border: 8px solid #1f2937; border-radius: 36px; overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative;
+        /* 头部导航：强调实时警报 */
+        header {
+            padding: 20px 0;
+            background-color: rgba(5, 7, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-line);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .phone-header { background: #075e54; padding: 15px; display: flex; align-items: center; gap: 12px; color: #fff; }
-        .phone-avatar { width: 36px; height: 36px; background: #128c7e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .phone-chat { background: #efeae2; padding: 20px 15px; display: flex; flex-direction: column; gap: 10px; height: 350px; }
-        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; color: #111; line-height: 1.4; }
-        .msg.received { background: #fff; align-self: flex-start; border-top-left-radius: 0; }
-        .msg.alert { background: #e1ffc7; align-self: flex-start; border-top-left-radius: 0; border-left: 3px solid var(--cyber-green); }
-        .msg-pnl { background: #111; color: var(--cyber-green); padding: 8px; border-radius: 6px; text-align: center; font-weight: bold; font-family: 'Space Grotesk'; margin-top: 5px; font-size: 16px; border: 1px solid rgba(0,255,102,0.3); }
-        .msg-time { display: block; text-align: right; font-size: 10px; color: #888; margin-top: 4px; }
 
-        /* ==========================================
-           7. 模块 5 & 6：流程与真实背书 (Steps & Testimonials)
-           ========================================== */
-        .steps-section, .reviews-section { padding: 70px 0; }
-        .steps-flex { display: flex; justify-content: space-between; gap: 30px; margin-top: 40px; }
-        .step-item { flex: 1; text-align: center; background: var(--bg-card); padding: 30px 20px; border-radius: 12px; border: 1px solid var(--border-line); }
-        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(0,255,102,0.1); color: var(--cyber-green); border-radius: 50%; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand span {
+            color: var(--cyber-green);
+        }
+
+        .live-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            color: var(--cyber-green);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--cyber-green);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 var(--cyber-green-glow); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+        }
+
+        /* 首屏爆发区：文案与转化按钮 */
+        .hero {
+            padding: 70px 0 50px 0;
+            text-align: center;
+            background: radial-gradient(circle at center top, rgba(0, 255, 102, 0.05) 0%, transparent 60%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(247, 147, 26, 0.1);
+            color: var(--crypto-gold);
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--cyber-green);
+            text-decoration: underline;
+            text-decoration-color: rgba(0, 255, 102, 0.3);
+            text-underline-offset: 8px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* 终端实时看盘模块 */
+        .terminal-section {
+            margin-bottom: 70px;
+        }
+
+        .terminal-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-line);
+            border-radius: 12px;
+            padding: 15px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        .terminal-title {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-tab {
+            background: #111827;
+            border: 1px solid var(--border-line);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .terminal-tab.active, .terminal-tab:hover {
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--cyber-green);
+            border-color: rgba(0, 255, 102, 0.3);
+        }
+
+        .tv-wrapper {
+            height: 550px; /* PC 端大屏高度 */
+            width: 100%;
+            background-color: #0b0e14;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-line);
+        }
+
+        /* 痛点打透：价值主张区 */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 70px;
+        }
+
+        .value-card {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(13, 19, 31, 0.4) 100%);
+            border: 1px solid var(--border-line);
+            padding: 35px 25px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 102, 0.4);
+        }
+
+        .value-icon {
+            font-size: 32px;
+            color: var(--cyber-green);
+            margin-bottom: 20px;
+        }
+
+        .value-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .value-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* FOMO 收网区 */
+        .fomo-section {
+            background-color: var(--cyber-green);
+            color: #000;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 60px;
+        }
+
+        .fomo-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .fomo-section p {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-black {
+            background-color: #000000;
+            color: var(--cyber-green);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: none;
+        }
         
-        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
-        .review-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-line); }
-        .review-stars { color: var(--crypto-gold); margin-bottom: 10px; font-size: 12px; }
-        .review-text { font-size: 14px; font-style: italic; color: var(--text-main); margin-bottom: 20px; }
-        .reviewer { display: flex; align-items: center; gap: 12px; }
-        .reviewer div { font-size: 13px; font-weight: bold; }
-        .reviewer span { display: block; font-size: 11px; color: var(--text-muted); font-weight: normal; }
+        .btn-black:hover {
+            background-color: #111;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        /* 悬浮与尾部合规 */
+        .floating-cta {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+        }
+
+        .btn-float {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cyber-green);
+            color: #000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 34px;
+            box-shadow: 0 10px 25px var(--cyber-green-glow);
+            text-decoration: none;
+            transition: all 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        footer {
+            border-top: 1px solid var(--border-line);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .disclaimer {
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: justify;
+        }
 
         /* ==========================================
-           8. 模块 7：常见问题解答 (FAQ)
-           ========================================== */
-        .faq-section { padding: 60px 0; max-width: 800px; margin: 0 auto; }
-        details { background: var(--bg-card); border: 1px solid var(--border-line); border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
-        summary { padding: 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '+'; font-size: 20px; color: var(--cyber-green); }
-        details[open] summary::after { content: '-'; }
-        .faq-content { padding: 0 20px 20px 20px; color: var(--text-muted); font-size: 15px; }
-
-        /* ==========================================
-           9. 模块 8：FOMO 收网区与悬浮 (Final CTA)
-           ========================================== */
-        .fomo-section { background: var(--fomo-red); color: #fff; padding: 60px 20px; text-align: center; border-radius: 16px; margin: 0 auto 60px auto; max-width: 960px; }
-        .fomo-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 38px; margin-bottom: 15px; }
-        .fomo-section p { font-size: 18px; font-weight: 500; margin-bottom: 30px; opacity: 0.95; }
-        .fomo-section .btn-whatsapp { background: #000; color: #fff; border-color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .fomo-section .btn-whatsapp:hover { background: #222; }
-
-        .floating-cta { position: fixed; bottom: 25px; right: 25px; z-index: 999; }
-        .btn-float { display: flex; align-items: center; justify-content: center; background-color: var(--cyber-green); color: #000; width: 60px; height: 60px; border-radius: 50%; font-size: 34px; box-shadow: 0 10px 25px var(--cyber-green-glow); text-decoration: none; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        footer { border-top: 1px solid var(--border-line); padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 12px; max-width: 1000px; margin: 0 auto; }
-        .disclaimer { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; margin-bottom: 20px; line-height: 1.6; text-align: justify; }
-
-        /* ==========================================
-           👑【核心移动端适配】PC 与手机的完美过渡
+           【核心移动端适配区】
            ========================================== */
         @media (max-width: 900px) {
-            .hero h1 { font-size: 46px; }
-            .mockup-container { flex-direction: column; text-align: center; }
-            .steps-flex { flex-direction: column; gap: 20px; }
-            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 42px; }
+            .value-grid { grid-template-columns: 1fr; gap: 20px; }
+            .terminal-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .terminal-tabs { width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 5px; }
         }
 
+        /* 专门针对手机竖屏模式的极限优化 */
         @media (max-width: 768px) {
-            .hero { padding: 40px 0; }
-            .hero h1 { font-size: 36px; margin-bottom: 15px; }
-            .hero p { font-size: 16px; margin-bottom: 30px; }
-            .btn-whatsapp { font-size: 16px; padding: 16px 20px; }
-            .btn-whatsapp i { font-size: 22px; }
+            .brand { font-size: 20px; }
+            .live-status { font-size: 10px; padding: 4px 10px; }
+            .hero { padding: 40px 0 30px 0; }
+            .hero h1 { font-size: 34px; margin-bottom: 15px; }
+            .hero p { font-size: 15px; margin-bottom: 25px; padding: 0 5px; }
+            .hero-badge { margin-bottom: 15px; }
 
-            .section-title { font-size: 28px; margin-bottom: 30px; }
+            .btn-whatsapp {
+                font-size: 16px;
+                padding: 16px 20px;
+            }
+            .btn-whatsapp i { font-size: 22px; margin-right: 8px; }
+
+            /* ===================================================
+               修复核心：动态视口高度 (vh)
+               确保图表在任何尺寸的手机上都占据至少 55% 的屏幕高度
+               =================================================== */
+            .chart-section.container { padding: 0 15px; }
+            .terminal-box { padding: 15px 12px; border-radius: 12px; }
             
-            /* 特权网格手机端变单列 */
-            .features-grid { grid-template-columns: 1fr; gap: 15px; }
-            .feature-card { padding: 25px 20px; }
-            
-            /* 手机仿真框等比缩放防溢出 */
-            .mockup-section { padding: 40px 0; }
-            .mockup-text h2 { font-size: 30px; }
-            .mockup-phone { width: 100%; max-width: 320px; margin: 0 auto; border-width: 6px; border-radius: 28px; }
-            
-            /* 评价手机端变单列 */
-            .reviews-grid { grid-template-columns: 1fr; gap: 15px; }
-            
-            /* FOMO 区块防溢出 */
-            .fomo-section { padding: 40px 20px; margin: 0 15px 40px 15px; border-radius: 12px; }
-            .fomo-section h2 { font-size: 28px; line-height: 1.3; }
-            .fomo-section p { font-size: 15px; }
-            
+            .tv-wrapper {
+                height: 55vh; /* 魔法代码：动态占据屏幕高度的 55% */
+                min-height: 420px; /* 兜底机制：即使在老款小屏手机上也不会低于420px */
+                border-radius: 6px;
+            }
+
+            .fomo-section { padding: 40px 20px; margin: 0 15px 40px 15px; border-radius: 16px; }
+            .fomo-section h2 { font-size: 26px; line-height: 1.3; margin-bottom: 10px; }
+            .fomo-section p { font-size: 15px; margin-bottom: 25px; }
+            .btn-black { font-size: 15px; padding: 16px 15px; }
+
+            .value-card { padding: 25px 20px; }
+            .value-icon { font-size: 28px; margin-bottom: 15px; }
+            .value-card h3 { font-size: 18px; }
+
             .floating-cta { bottom: 20px; right: 20px; }
             .btn-float { width: 54px; height: 54px; font-size: 30px; }
         }
     </style>
+
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
         !function(f,b,e,v,n,t,s)
@@ -208,164 +428,91 @@
     </head>
 <body>
 
-    <div class="ticker-wrap">
-        <div class="ticker-track">
-            <div class="ticker-item">🚨 <span class="red">WHALE ALERT:</span> 4,500 BTC transferred from unknown wallet to Binance</div>
-            <div class="ticker-item">🟢 <span class="green">SMART MONEY:</span> Top 10 wallet accumulated 150,000 SOL in 24h</div>
-            <div class="ticker-item">🚨 <span class="red">ON-CHAIN DATA:</span> Massive ETH unstaking detected</div>
-            <div class="ticker-item">🟢 <span class="green">ALPHA LEAK:</span> New 100x Meme coin target verified by internal team</div>
-            <div class="ticker-item">🚨 <span class="red">WHALE ALERT:</span> 4,500 BTC transferred from unknown wallet to Binance</div>
-            <div class="ticker-item">🟢 <span class="green">SMART MONEY:</span> Top 10 wallet accumulated 150,000 SOL in 24h</div>
+    <header>
+        <div class="container header-inner">
+            <div class="brand">
+                <i class="fa-solid fa-cube"></i> Crypto<span>Alpha</span>
+            </div>
+            <div class="live-status">
+                <div class="pulse-dot"></div> WHALE ALERTS ACTIVE
+            </div>
+        </div>
+    </header>
+
+    <div style="border-bottom: 1px solid var(--border-line);">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+            "symbols": [
+                { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
+                { "proName": "BINANCE:ETHUSDT", "title": "Ethereum" },
+                { "proName": "BINANCE:SOLUSDT", "title": "Solana" },
+                { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
+                { "proName": "BINANCE:PEPEUSDT", "title": "PEPE" }
+            ],
+            "showSymbolLogo": true,
+            "colorTheme": "dark",
+            "isTransparent": true,
+            "displayMode": "adaptive",
+            "locale": "en"
+            }
+            </script>
         </div>
     </div>
 
     <section class="hero container">
-        <div class="trust-badge">
-            <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-            Trusted by 12,500+ Elite Traders
-        </div>
-        <h1>Trade Alongside the Whales. <span>Not Against Them.</span></h1>
-        <p>Join the most exclusive crypto inner circle. Get access to confidential Alpha reports, Whale wallet tracking, and VIP copy-trading signals delivered straight to your WhatsApp.</p>
+        <div class="hero-badge"><i class="fa-brands fa-bitcoin"></i> 2026 Bull Market Strategy</div>
+        <h1>Stop Guessing. Get Institutional-Grade <span>Crypto Signals</span> Daily.</h1>
+        <p>Join the elite private circle. Receive precise Long/Short futures setups, Whale wallet tracking, and 1-on-1 portfolio diagnostics directly on your WhatsApp.</p>
+        
         <a href="#" class="btn-whatsapp">
-            <i class="fa-brands fa-whatsapp"></i> Join The Free Inner Circle
+            <i class="fa-brands fa-whatsapp"></i> Unlock Free VIP Signals Now
         </a>
     </section>
 
-    <section class="features-section container">
-        <h2 class="section-title">What You Get Inside The Circle</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-                <h3>Whale Wallet Tracking</h3>
-                <p>We monitor institutional wallets 24/7. Get WhatsApp alerts minutes before massive pumps or devastating dumps hit the market.</p>
+    <section class="terminal-section container chart-section">
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <div class="terminal-title">
+                    <i class="fa-solid fa-chart-line" style="color: var(--cyber-green);"></i> Live Premium Alpha Terminal
+                </div>
+                <div class="terminal-tabs">
+                    <div class="terminal-tab active" onclick="switchCryptoChart('BINANCE:BTCUSDT', this)">BTC/USDT</div>
+                    <div class="terminal-tab" onclick="switchCryptoChart('BINANCE:ETHUSDT', this)">ETH/USDT</div>
+                    <div class="terminal-tab" onclick="switchCryptoChart('BINANCE:SOLUSDT', this)">SOL/USDT</div>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-copy"></i></div>
-                <h3>VIP Copy Trading</h3>
-                <p>Stop guessing entry points. Simply copy the exact Long/Short futures setups from our veteran analysts holding an 87.4% win rate.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>
-                <h3>100x Gem Alpha Reports</h3>
-                <p>Retail buys at the top. We find low-cap Altcoins and Memecoins before they get listed on major exchanges like Binance.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>1-on-1 Risk Management</h3>
-                <p>Stuck in heavy losses? Connect with a strategist to restructure your spot portfolio and set strict Stop-Loss parameters to protect your capital.</p>
+            <div class="tv-wrapper">
+                <div id="crypto_live_chart" style="height: 100%; width: 100%;"></div>
             </div>
         </div>
     </section>
 
-    <section class="mockup-section">
-        <div class="container mockup-container">
-            <div class="mockup-text">
-                <h2>Real-Time Alpha.<br>Zero Delay.</h2>
-                <p>The crypto market moves in minutes. Email newsletters are too slow, and Discord groups are too noisy. We deliver high-conviction trade setups directly to your phone exactly when it matters.</p>
-                <a href="#" class="btn-whatsapp" style="max-width: 350px;">
-                    <i class="fa-brands fa-whatsapp"></i> Get Live Alerts Now
-                </a>
-            </div>
-            <div class="mockup-phone">
-                <div class="phone-header">
-                    <div class="phone-avatar"><i class="fa-solid fa-user-secret"></i></div>
-                    <div>
-                        <div style="font-size: 14px; font-weight: bold;">Alpha Strategist</div>
-                        <div style="font-size: 11px; opacity: 0.8;">Online</div>
-                    </div>
-                </div>
-                <div class="phone-chat">
-                    <div class="msg received">
-                        BTC dominance is dropping. Altcoin season is loading. Ready for the setup?
-                        <span class="msg-time">10:14 AM</span>
-                    </div>
-                    <div class="msg alert">
-                        <strong>[VIP SIGNAL]</strong> 🟢 LONG $SOL<br>Entry: $138.50 - $140.00<br>Target: $165.00<br>Stop Loss: $132.00
-                        <span class="msg-time">10:17 AM</span>
-                    </div>
-                    <div class="msg received">
-                        Trade closed. Target smashed. Great job to everyone who followed! 🚀
-                        <div class="msg-pnl">SOL/USDT PnL: +345.2%</div>
-                        <span class="msg-time">04:30 PM</span>
-                    </div>
-                </div>
-            </div>
+    <section class="container value-grid">
+        <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-crosshairs"></i></div>
+            <h3>Precise Entry & Exit (TP/SL)</h3>
+            <p>No more emotional trading. We provide exact leverage limits, precise entry zones, and strict Take Profit/Stop Loss parameters for Binance and Bybit futures.</p>
         </div>
-    </section>
-
-    <section class="steps-section container">
-        <h2 class="section-title">How To Start Winning</h2>
-        <div class="steps-flex">
-            <div class="step-item">
-                <div class="step-num">1</div>
-                <h4 style="margin-bottom: 10px; font-size: 18px;">Click The Link</h4>
-                <p style="font-size: 14px; color: var(--text-muted);">Tap any green button on this page to open WhatsApp securely.</p>
-            </div>
-            <div class="step-item">
-                <div class="step-num">2</div>
-                <h4 style="margin-bottom: 10px; font-size: 18px;">Get Verified</h4>
-                <p style="font-size: 14px; color: var(--text-muted);">Send the automated message to connect with your assigned strategist.</p>
-            </div>
-            <div class="step-item">
-                <div class="step-num">3</div>
-                <h4 style="margin-bottom: 10px; font-size: 18px;">Receive Alpha</h4>
-                <p style="font-size: 14px; color: var(--text-muted);">Start receiving daily market insights and precise trade setups instantly.</p>
-            </div>
+        <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-water"></i></div>
+            <h3>Whale Activity Tracking</h3>
+            <p>We monitor massive on-chain wallet movements. Get alerted instantly on WhatsApp before institutional dumps or sudden pumpouts happen on major altcoins.</p>
         </div>
-    </section>
-
-    <section class="reviews-section container">
-        <h2 class="section-title">Verified Member Success</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <div class="review-text">"I was losing money constantly on leverage trading. The 1-on-1 risk management advice completely saved my portfolio. The SOL short setup last week was incredibly accurate."</div>
-                <div class="reviewer">
-                    <div style="width: 36px; height: 36px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-user" style="color: #fff; font-size: 14px;"></i></div>
-                    <div>Marcus T.<span>Day Trader</span></div>
-                </div>
-            </div>
-            <div class="review-card">
-                <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <div class="review-text">"The Whale alerts are a game changer. Getting notified right before massive dumps happen has allowed me to protect my spot bags. Extremely professional team."</div>
-                <div class="reviewer">
-                    <div style="width: 36px; height: 36px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-user" style="color: #fff; font-size: 14px;"></i></div>
-                    <div>Sarah J.<span>Crypto Investor</span></div>
-                </div>
-            </div>
-            <div class="review-card">
-                <div class="review-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <div class="review-text">"I don't have time to stare at charts all day. Having the exact Entry, Take Profit, and Stop Loss sent to my WhatsApp makes crypto trading completely stress-free for me."</div>
-                <div class="reviewer">
-                    <div style="width: 36px; height: 36px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-user" style="color: #fff; font-size: 14px;"></i></div>
-                    <div>David L.<span>Business Owner</span></div>
-                </div>
-            </div>
+        <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+            <h3>1-on-1 Portfolio Diagnostic</h3>
+            <p>Stuck in heavy altcoin bags? Connect directly with a veteran crypto strategist to review your spot holdings and restructure your assets for the upcoming bull run.</p>
         </div>
-    </section>
-
-    <section class="faq-section container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <details>
-            <summary>Why is this VIP circle free?</summary>
-            <div class="faq-content">We are currently expanding our community footprint in the Australian and global markets. By providing undeniable value and winning trades upfront, we build long-term trust. We are strictly accepting only the first 100 members for free this month.</div>
-        </details>
-        <details>
-            <summary>I am a beginner. Can I still join?</summary>
-            <div class="faq-content">Absolutely. You will be assigned a 1-on-1 strategist on WhatsApp who can guide you on how to set up your exchange account, execute trades, and manage risk safely.</div>
-        </details>
-        <details>
-            <summary>Which exchanges do you support?</summary>
-            <div class="faq-content">Our trade setups and Alpha signals are universal and can be executed on any major exchange including Binance, Bybit, OKX, and Coinbase.</div>
-        </details>
     </section>
 
     <section class="container">
         <div class="fomo-section">
-            <h2>WARNING: The Next Mega-Cap Altcoin Report Drops In 12 Hours.</h2>
-            <p>We are closing the doors soon. Only 4 free advisory spots remain for this week's intake. Do not miss the pre-pump accumulation phase.</p>
-            <a href="#" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i> Secure Your Free Spot Now
+            <h2>The Next Parabolic Run is Imminent.</h2>
+            <p>Don't get left behind. We are opening 7 free VIP advisory spots for new members today.</p>
+            <a href="#" class="btn-whatsapp btn-black">
+                <i class="fa-brands fa-whatsapp"></i> Claim Your Free Spot on WhatsApp
             </a>
         </div>
     </section>
@@ -376,31 +523,52 @@
         </a>
     </div>
 
-    <footer>
+    <footer class="container">
         <div class="disclaimer">
             <strong>High-Risk Investment Warning:</strong> Trading cryptocurrencies, perpetual futures, and digital assets involves significant risk and can result in the loss of your invested capital. You should not invest more than you can afford to lose and should ensure that you fully understand the risks involved. The information provided on this platform does not constitute investment advice, financial advice, or trading advice. All alerts and market analyses are for educational and informational purposes only. Past performance of any trading system or methodology is not necessarily indicative of future results.
         </div>
-        <p>&copy; 2026 Crypto Alpha Network. All Rights Reserved.</p>
+        <p>&copy; 2026 Crypto Alpha Terminal Insights. All Rights Reserved.</p>
     </footer>
 
     <script type="text/javascript">
+        function loadCryptoChart(symbol) {
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": symbol,
+                "interval": "60", 
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1", 
+                "locale": "en",
+                "toolbar_bg": "#0d131f",
+                "enable_publishing": false,
+                "hide_top_toolbar": false,
+                "hide_legend": false,
+                "save_image": false,
+                "container_id": "crypto_live_chart"
+            });
+        }
+
+        function switchCryptoChart(symbol, tabElement) {
+            const tabs = document.querySelectorAll('.terminal-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tabElement.classList.add('active');
+            loadCryptoChart(symbol);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // 批量抓取所有诱导点击按钮
             const waButtons = document.querySelectorAll('.btn-whatsapp, .btn-float');
 
             waButtons.forEach(function(button) {
                 button.addEventListener('click', function(e) {
-                    // 1. 阻断默认跳转，确保 Meta Pixel 追踪时间
                     e.preventDefault(); 
 
-                    // 2. 客服池配置 (私董圈黑话版本)
                     const whatsappPool = [
-                        { phone: "61400000001", text: "Hi! I want to join the VIP Inner Circle to get the Whale Alpha reports and 1-on-1 strategy." },
-                        { phone: "61400000002", text: "Hi! I want to join the VIP Inner Circle to get the Whale Alpha reports and 1-on-1 strategy." },
-                        { phone: "61400000003", text: "Hi! I want to join the VIP Inner Circle to get the Whale Alpha reports and 1-on-1 strategy." }
+                        { phone: "61400000001", text: "Hi! I saw the Crypto Alpha Terminal. I want to unlock the free VIP signals and 1-on-1 strategy." },
+                        { phone: "61400000002", text: "Hi! I saw the Crypto Alpha Terminal. I want to unlock the free VIP signals and 1-on-1 strategy." },
+                        { phone: "61400000003", text: "Hi! I saw the Crypto Alpha Terminal. I want to unlock the free VIP signals and 1-on-1 strategy." }
                     ];
 
-                    // 3. 24小时防撞单记忆锁
                     const LOCK_DURATION = 24 * 60 * 60 * 1000; 
                     const now = new Date().getTime();
                     let selectedTarget = null;
@@ -429,7 +597,6 @@
                         localStorage.setItem('wa_assigned_client', JSON.stringify(cachePayload));
                     }
 
-                    // 4. 路由与设备解析
                     const targetPhone = selectedTarget.phone;
                     const encodedText = encodeURIComponent(selectedTarget.text);
 
@@ -444,25 +611,27 @@
                         finalUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
                     }
 
-                    // 5. 【核心】完美触发 Meta Contact 事件，并加入自定义版型参数
                     if (typeof fbq === 'function') {
                         fbq('track', 'Contact', {
                             assigned_whatsapp: targetPhone,
                             user_device: isMobile ? (isFacebook ? 'Facebook_IAB' : 'Mobile_Standard') : 'PC',
                             is_cached_user: cachedShuntData ? 'Yes' : 'No',
-                            crypto_layout: 'Layout_2_WhaleCircle' // 标记这是跑版型2（私董圈子）转化来的
+                            crypto_layout: 'Layout_1_Terminal_Mobile_Max' 
                         });
                     } else {
                         console.warn('Meta Pixel 状态异常，事件暂存浏览器日志');
                     }
 
-                    // 6. 延迟 250ms 后强行 location.href 重定向，无视弹窗拦截
                     setTimeout(function() {
                         window.location.href = finalUrl;
                     }, 250); 
                 });
             });
         });
+
+        window.onload = function() {
+            loadCryptoChart('BINANCE:BTCUSDT');
+        };
     </script>
 </body>
 </html>
