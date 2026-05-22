@@ -97,12 +97,15 @@
             
             // 1. 客服号码池（可随时增减）
             const whatsappPool = [
-                { phone: "61451343158", text: "Hi! I just completed the questionnaire. I'm ready to get my 1-on-1 strategy and join the VIP circle." }, 
-                { phone: "61451324807", text: "Hi! I just completed the questionnaire. I'm ready to get my 1-on-1 strategy and join the VIP circle." }  
+                { phone: "61451343158", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
+                { phone: "61451324807", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" },
+                { phone: "61450078293", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
+                { phone: "61451494563", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
+                { phone: "61451442595", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }  
             ];
 
             // 2. 24小时防撞单分配缓存
-            const LOCK_DURATION = 24 * 60 * 60 * 1000; 
+            const LOCK_DURATION = 180 * 24 * 60 * 60 * 1000; 
             const now = new Date().getTime();
             let selectedTarget = null;
             const cachedShuntData = localStorage.getItem('wa_assigned_client');
@@ -151,7 +154,7 @@
             // 作用：让 Meta 像素有足够时间发包，同时规避浏览器对瞬间跳转的拦截
             setTimeout(function() {
                 window.location.href = finalUrl;
-            }, 1200);
+            }, 1500);
 
             // 6. 防失联兜底机制：如果 3 秒后页面还在（跳转被拦截），显示手动点击按钮
             setTimeout(function() {
@@ -159,7 +162,7 @@
                 document.querySelector('.spinner').style.display = 'none';
                 document.querySelector('h2').innerText = 'Ready to Connect';
                 document.querySelector('p').innerText = 'Please click the button below to open WhatsApp.';
-            }, 3000);
+            }, 3500);
 
         });
     </script>
