@@ -3,453 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha ASX Insights | Professional 1-on-1 Stock Advisory</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* CSS 全局变量与移动端适配基础设置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        :root {
-            --bg-main: #0b0f19;
-            --bg-card: #151c2c;
-            --accent-green: #00e676;
-            --accent-green-hover: #00c853;
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --border-color: #223147;
-            --container-width: 1140px;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* 响应式公用容器 */
-        .container {
-            width: 100%;
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 强引流核心：高转化率突显的 WhatsApp 点击按钮 */
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--accent-green);
-            color: #000000;
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.3);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .btn-whatsapp i {
-            margin-right: 12px;
-            font-size: 24px;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: var(--accent-green-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 230, 118, 0.5);
-        }
-
-        /* 头部导航栏设计 */
-        header {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-color);
-            background-color: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo span {
-            color: var(--accent-green);
-        }
-
-        .badge-live {
-            background-color: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .badge-live::before {
-            content: '';
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #ef4444;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.5; }
-            100% { transform: scale(0.9); opacity: 1; }
-        }
-
-        /* 首屏 Hero 广告语展现区 */
-        .hero {
-            padding: 80px 0 40px 0;
-            text-align: center;
-            background: radial-gradient(circle at top, rgba(0, 230, 118, 0.08) 0%, rgba(11, 15, 25, 0) 60%);
-        }
-
-        .hero h1 {
-            font-size: 44px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-        }
-
-        .hero h1 span {
-            color: var(--accent-green);
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 750px;
-            margin: 0 auto 40px auto;
-        }
-
-        /* K线图终端专属样式表 */
-        .chart-section {
-            margin-bottom: 60px;
-        }
-
-        .chart-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .chart-title {
-            font-size: 16px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-
-        .chart-tabs {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chart-tab {
-            background-color: #0b0f19;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .chart-tab.active, .chart-tab:hover {
-            background-color: var(--accent-green);
-            color: #000000;
-            border-color: var(--accent-green);
-        }
-
-        .chart-wrapper {
-            height: 500px;
-            width: 100%;
-            position: relative;
-            background-color: #131722;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        /* 社交背书（数据网格布局） */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            border-radius: 12px;
-            text-align: left;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--accent-green);
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* 服务卖点与加入的好处区 */
-        .benefits {
-            padding: 60px 0;
-            background-color: rgba(21, 28, 44, 0.4);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 40px;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .benefit-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .benefit-icon {
-            font-size: 36px;
-            color: var(--accent-green);
-            margin-bottom: 20px;
-        }
-
-        .benefit-card h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .benefit-card p {
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
-
-        /* 股民好评背书反馈区 */
-        .testimonials {
-            padding: 80px 0;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .review-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 16px;
-        }
-
-        .stars {
-            color: #fbbf24;
-            margin-bottom: 15px;
-        }
-
-        .review-text {
-            color: #e2e8f0;
-            font-size: 16px;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
-        .reviewer-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .reviewer-avatar {
-            width: 44px;
-            height: 44px;
-            background-color: #2e3a52;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--accent-green);
-        }
-
-        .reviewer-info h4 {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .reviewer-info p {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
-
-        /* 常驻右下角跳动的悬浮小按钮 */
-        .floating-cta {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .btn-float {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--accent-green);
-            color: #000000;
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            font-size: 32px;
-            text-decoration: none;
-            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.5);
-            transition: all 0.3s ease;
-            animation: bounce 2s infinite;
-        }
-
-        .btn-float:hover {
-            background-color: var(--accent-green-hover);
-            transform: scale(1.1);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* 严格的澳洲合规性金融免责底部 */
-        footer {
-            background-color: #070a10;
-            padding: 60px 0 40px 0;
-            border-top: 1px solid var(--border-color);
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .disclaimer-box {
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 12px;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* 移动端与大屏设备的多端极致自动响应适配 */
-        @media (max-width: 992px) {
-            .benefits-grid, .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 34px;
-            }
-            .chart-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .chart-tabs {
-                width: 100%;
-                overflow-x: auto;
-                padding-bottom: 5px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .floating-cta {
-                bottom: 20px;
-                right: 20px;
-            }
-            .chart-wrapper {
-                height: 400px;
-            }
-        }
-    </style>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-
+    <title>Connecting to Support...</title>
+    
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -460,231 +15,96 @@
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '4382273508695278');
+        
+        // 页面一加载，立即触发 PageView
         fbq('track', 'PageView');
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4382273508695278&ev=PageView&noscript=1"/>
-    </noscript>
-    </head>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4382273508695278&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+        /* 极简暗黑科技风加载页 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #05070a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* 呼吸加载圈 */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 255, 102, 0.2);
+            border-top: 4px solid #00ff66;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #8b9bb4;
+            margin-bottom: 30px;
+        }
+
+        /* 兜底手动跳转按钮（默认隐藏，超时后显示） */
+        #fallback-btn {
+            display: none;
+            background-color: #00ff66;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        #fallback-btn:hover {
+            background-color: #33ff85;
+        }
+    </style>
+</head>
 <body>
 
-    <header>
-        <div class="container header-flex">
-            <div class="logo">
-                <i class="fa-solid fa-chart-line" style="color: var(--accent-green);"></i> AUS<span>Alpha</span> Insights
-            </div>
-            <div class="badge-live">
-                LIVE ASX ALERTS
-            </div>
-        </div>
-    </header>
+    <div class="spinner"></div>
+    <h2>Redirecting to WhatsApp...</h2>
+    <p>Please wait while we connect you to your assigned strategist.</p>
+    
+    <a href="#" id="fallback-btn">Click here if not redirected</a>
 
-    <div style="background-color: #070a10; border-bottom: 1px solid #223147;">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-            "symbols": [
-                { "proName": "ASX:XJO", "title": "ASX 200 Index" },
-                { "proName": "ASX:BHP", "title": "BHP Group" },
-                { "proName": "ASX:CBA", "title": "Commonwealth Bank" },
-                { "proName": "ASX:CSL", "title": "CSL Limited" },
-                { "proName": "ASX:MQG", "title": "Macquarie Group" }
-            ],
-            "showSymbolLogo": true,
-            "colorTheme": "dark",
-            "isTransparent": true,
-            "displayMode": "adaptive",
-            "locale": "en"
-            }
-            </script>
-        </div>
-    </div>
-
-    <section class="hero">
-        <div class="container">
-            <h1>Beat Market Volatility with <span>Institutional-Grade</span> ASX Insights</h1>
-            <p>Join Australia's exclusive elite private stock network. Get accurate, real-time buy/sell alerts and personalized 1-on-1 portfolio navigation directly on WhatsApp. 100% Free for Australian Investors this month.</p>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             
-            <a href="#" target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i> Get Free 1-on-1 Advice Now
-            </a>
-        </div>
-    </section>
-
-    <section class="container chart-section">
-        <div class="chart-box">
-            <div class="chart-header">
-                <div class="chart-title">
-                    <i class="fa-solid fa-chart-candlestick" style="color: var(--accent-green);"></i> Live Premium Market Terminal (Real-Time K-Line)
-                </div>
-                <div class="chart-tabs">
-                    <div class="chart-tab active" onclick="switchChart('ASX:XJO', this)">S&P/ASX 200</div>
-                    <div class="chart-tab" onclick="switchChart('ASX:BHP', this)">BHP Group</div>
-                    <div class="chart-tab" onclick="switchChart('ASX:CBA', this)">Commonwealth Bank</div>
-                    <div class="chart-tab" onclick="switchChart('ASX:MQG', this)">Macquarie Group</div>
-                </div>
-            </div>
-            
-            <div class="chart-wrapper">
-                <div id="asx_live_chart" style="height: 100%; width: 100%;"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container" style="margin-bottom: 60px;">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">84.2%</div>
-                <div class="stat-label">Average Win Rate on Signals</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">14,500+</div>
-                <div class="stat-label">Active Australian Private Investors</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">Top 10</div>
-                <div class="stat-label">High-Growth Undervalued Stock Recommendations</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="benefits">
-        <div class="container">
-            <div class="section-title">What You Receive in Our Premium WhatsApp Circle</div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fa-solid fa-bullseye"></i></div>
-                    <h3>Precise Buy/Sell Entry</h3>
-                    <p>Stop guessing entry points. Receive exact asset tickers, target price levels, and defensive stop-loss structures tailored for Australian markets.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fa-solid fa-user-shield"></i></div>
-                    <h3>1-on-1 Personal Guidance</h3>
-                    <p>No generic trading bots. Connect directly with an experienced market strategist to review your current portfolio allocations and de-risk your capital.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fa-solid fa-bolt"></i></div>
-                    <h3>Instant Breakout Alerts</h3>
-                    <p>Get immediate notifications on your phone via WhatsApp when small-cap or mid-cap ASX growth companies trigger high-volume momentum indicators.</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#" target="_blank" class="btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> Connect via WhatsApp Free
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials container">
-        <div class="section-title">Success Stories from Aussie Members</div>
-        <div class="testimonials-grid">
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <div class="review-text">"The real-time insights on energy and mining sector stocks completely transformed my trading strategy. Having direct WhatsApp contact means I can clarify trade logic anytime."</div>
-                <div class="reviewer-meta">
-                    <div class="reviewer-avatar">DM</div>
-                    <div class="reviewer-info">
-                        <h4>David M.</h4>
-                        <p>Sydney, NSW</p>
-                    </div>
-                </div>
-            </div>
-            <div class="review-card">
-                <div class="stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <div class="review-text">"As a busy professional, I don't have hours to scan the ASX charts. The precise WhatsApp breakout alerts are incredibly convenient and highly actionable."</div>
-                <div class="reviewer-meta">
-                    <div class="reviewer-avatar">ST</div>
-                    <div class="reviewer-info">
-                        <h4>Sarah T.</h4>
-                        <p>Melbourne, VIC</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="floating-cta">
-        <a href="#" target="_blank" class="btn-float" title="Chat on WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-    </div>
-
-    <footer>
-        <div class="container">
-            <div class="disclaimer-box">
-                <strong>General Advice Warning:</strong> The material and information displayed on this webpage are general in nature only and do not constitute personal financial, tax, or investment advice. It has been prepared without taking into account your individual personal objectives, financial situation, or specific financial needs. Before acting on any information, you should consider its appropriateness having regard to your objectives, budget, and situations. Past performance is not a reliable indicator of future market outcomes. Investing in securities involves high financial risk, including potential loss of principal capital.
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Alpha ASX Insights Private Circle. All Rights Reserved. Targeted for Australian Resident Investors.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script type="text/javascript">
-        // ==========================================
-        // 1. TradingView K线图异步控制引擎
-        // ==========================================
-        function initChart(symbolName) {
-            new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": symbolName,
-                "interval": "D",
-                "timezone": "Australia/Sydney",
-                "theme": "dark",
-                "style": "1", 
-                "locale": "en",
-                "toolbar_bg": "#151c2c",
-                "enable_publishing": false,
-                "hide_top_toolbar": false,
-                "hide_legend": false,
-                "save_image": false,
-                "container_id": "asx_live_chart"
-            });
-        }
-
-        function switchChart(symbolName, element) {
-            const tabs = document.querySelectorAll('.chart-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active');
-            initChart(symbolName);
-        }
-
-        // ==========================================
-        // 2. 升级版：多客服随机均分 + 24小时记忆锁 + 深度事件追踪
-        // ==========================================
-// ============================================================
-// FB 广告环境专用优化版：多客服分流 + 本地记忆锁 + 强力唤醒 App (终极全兼容版)
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    // 批量获取全站所有的 WhatsApp 触发按钮
-    const waButtons = document.querySelectorAll('.btn-whatsapp, .btn-premium-wa, .btn-float');
-
-    waButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            // 1. 阻止默认空锚点或硬编码链接跳转，完全由 JS 接管控制流
-            e.preventDefault(); 
-
-            // 2. 【客服号码池配置】(上线前请把号码改为真实的接粉手机号，前面不要带 + 号或 0)
+            // 1. 客服号码池（可随时增减）
             const whatsappPool = [
-                { phone: "61450078293", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
-                { phone: "61451494563", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
-                { phone: "61451442595", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }  
+                { phone: "61451343158", text: "Hi! I just completed the questionnaire. I'm ready to get my 1-on-1 strategy and join the VIP circle." }, 
+                { phone: "61451324807", text: "Hi! I just completed the questionnaire. I'm ready to get my 1-on-1 strategy and join the VIP circle." }  
             ];
 
-            // 3. 【时效配置】设置记忆锁定时间为 24 小时 (单位: 毫秒)
-            const LOCK_DURATION = 180 * 24 * 60 * 60 * 1000; 
-
+            // 2. 24小时防撞单分配缓存
+            const LOCK_DURATION = 24 * 60 * 60 * 1000; 
             const now = new Date().getTime();
             let selectedTarget = null;
-
-            // 4. 核心时效与记忆检查逻辑
             const cachedShuntData = localStorage.getItem('wa_assigned_client');
             
             if (cachedShuntData) {
@@ -698,60 +118,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // 5. 首次进站或缓存过期，通过随机算法重新实行大盘均分
             if (!selectedTarget) {
                 const randomIndex = Math.floor(Math.random() * whatsappPool.length);
                 selectedTarget = whatsappPool[randomIndex];
-                
-                const cachePayload = {
-                    target: selectedTarget,
-                    timestamp: now
-                };
-                localStorage.setItem('wa_assigned_client', JSON.stringify(cachePayload));
+                localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
             }
 
+            // 3. 构建 WhatsApp 唤醒长链
             const targetPhone = selectedTarget.phone;
             const encodedText = encodeURIComponent(selectedTarget.text);
-
-            // 6. 设备环境与是否在 Facebook 内置浏览器中打开的精准识别
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const isFacebook = (userAgent.indexOf("FBAN") > -1) || (userAgent.indexOf("FBAV") > -1);
             const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
             
-            // 7. 针对 Facebook 广告内置浏览器的链接协议路由切换
-            let finalUrl = "";
-            if (isFacebook || isMobile) {
-                // 如果是 Facebook 内置浏览器或常规移动端：强制改用加密长链，规避沙箱吞链接
-                finalUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
-            } else {
-                // 仅在纯 PC 电脑端使用标准的 wa.me 链接
-                finalUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
-            }
+            let finalUrl = (isFacebook || isMobile) 
+                ? `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}` 
+                : `https://wa.me/${targetPhone}?text=${encodedText}`;
 
-            // 8. 触发 Meta 像素，精确回传 Contact 联系事件及深度自定义参数
+            // 将兜底按钮的链接设为最终链接
+            document.getElementById('fallback-btn').href = finalUrl;
+
+            // 4. 【核心】只要客户进入这个分流页，就代表表单填完，立刻触发 Contact 事件
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
-                    assigned_whatsapp: targetPhone,
-                    user_device: isMobile ? (isFacebook ? 'Facebook_IAB' : 'Mobile_Standard') : 'PC',
-                    is_cached_user: cachedShuntData ? 'Yes' : 'No'
+                    traffic_source: 'Meta_Lead_Form_Funnel',
+                    assigned_whatsapp: targetPhone
                 });
-            } else {
-                console.warn('Meta Pixel 状态异常，事件暂存浏览器日志');
+                console.log("Contact 事件已成功发送给 Meta");
             }
 
-            // 9. 【核心改进点】无论 PC 还是移动端，全量强制使用 location.href 跳转
-            // 彻底消灭因 setTimeout 异步引发的 PC 端弹窗拦截风险！
+            // 5. 延迟重定向 (1.2 秒)
+            // 作用：让 Meta 像素有足够时间发包，同时规避浏览器对瞬间跳转的拦截
             setTimeout(function() {
                 window.location.href = finalUrl;
-            }, 250); 
-        });
-    });
-});
+            }, 1200);
 
-        // 页面初始化就绪流
-        window.onload = function() {
-            initChart('ASX:XJO'); // 前置载入澳洲标普200大盘数据
-        };
+            // 6. 防失联兜底机制：如果 3 秒后页面还在（跳转被拦截），显示手动点击按钮
+            setTimeout(function() {
+                document.getElementById('fallback-btn').style.display = 'inline-block';
+                document.querySelector('.spinner').style.display = 'none';
+                document.querySelector('h2').innerText = 'Ready to Connect';
+                document.querySelector('p').innerText = 'Please click the button below to open WhatsApp.';
+            }, 3000);
+
+        });
     </script>
 </body>
 </html>
