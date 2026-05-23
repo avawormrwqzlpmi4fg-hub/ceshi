@@ -123,24 +123,23 @@
             const encodedText = encodeURIComponent(selectedTarget.text);
             const ua = navigator.userAgent || navigator.vendor || window.opera;
             const isAndroid = /Android/i.test(ua);
-            const isIOS = /iPad|iPhone|iPod/i.test(ua);
-
-            // 3. 构建底层协议链 (针对表单沙盒特化)
+            
+            // 3. 构建底层协议链
             const androidIntent = `intent://send?phone=${targetPhone}&text=${encodedText}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
-            // 注意：iOS 放宽协议要求，使用 api.whatsapp.com 配合 target="_blank" 迫使沙盒移交权限给 Safari
-            const iosSafeUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
+            // iOS 和 PC 的通用安全长链 (api.whatsapp 兼容性最好)
+            const universalSafeUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
 
-            let targetUrl = iosSafeUrl; 
+            let targetUrl = universalSafeUrl; 
             if (isAndroid) {
                 targetUrl = androidIntent; 
             }
             
+            // 将正确的链接绑定到按钮上
             document.getElementById('manual-btn').href = targetUrl;
 
             // 配置一键复制功能
             document.getElementById('copy-btn').innerText = `Copy Number: +${targetPhone}`;
             document.getElementById('copy-btn').addEventListener('click', function() {
-                // 使用老式与新式 API 结合，确保 iOS 兼容性
                 const textArea = document.createElement("textarea");
                 textArea.value = `+${targetPhone}`;
                 document.body.appendChild(textArea);
@@ -158,36 +157,36 @@
             // 4. 触发 Contact 像素
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
-                    traffic_source: 'Meta_Lead_Form_Sandbox',
+                    traffic_source: 'Meta_Lead_Form_Sandbox_Merged',
                     assigned_whatsapp: targetPhone
                 });
             }
 
-            // 5. 延迟 1.5 秒：双端分治执行
+            // 5. 延迟 1.5 秒：双轨并行执行引擎
             setTimeout(function() {
+                
+                // --- 轨道一：UI 变化（明面上显示按钮，作为表单沙盒的解药）---
                 document.getElementById('loading-spinner').style.display = 'none';
                 document.getElementById('status-title').innerText = 'Connection Ready';
+                document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
                 
-                if (isIOS) {
-                    // iOS 专属提示与兜底展示
-                    document.getElementById('status-desc').innerText = 'Please tap the button below to open WhatsApp securely.';
-                    document.getElementById('manual-btn').style.display = 'inline-flex';
-                    // 额外显示复制兜底，防止极端的沙盒拦截
-                    document.getElementById('copy-module').style.display = 'block';
-                } else {
-                    document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
-                    document.getElementById('manual-btn').style.display = 'inline-flex';
-                }
+                document.getElementById('manual-btn').style.display = 'inline-flex';
+                document.getElementById('copy-module').style.display = 'block';
 
+                // --- 轨道二：暗中执行自动跳转（为信息流和 PC 端恢复自动拉起功能）---
                 if (isAndroid) {
-                    // 安卓继续尝试自动强行穿透
+                    // 安卓自动穿透
                     const link = document.createElement('a');
                     link.href = androidIntent;
                     document.body.appendChild(link);
                     link.click();
+                } else {
+                    // 恢复 iOS (信息流) 和 PC 端的自动跳转！
+                    // 如果是在信息流里，这句代码会弹出 iOS 的“是否在 WhatsApp 打开”提示。
+                    // 如果是在表单沙盒里，这句代码会被静默拦截，但由于上面的 UI 已经弹出了按钮，用户依然可以手动脱困。
+                    window.location.href = universalSafeUrl;
                 }
                 
-                // iOS 不尝试自动跳转，强制依赖用户真实点击 manual-btn 触发 target="_blank"
             }, 1500);
 
         });
