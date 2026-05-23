@@ -22,7 +22,6 @@
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1465362682055475&ev=PageView&noscript=1"/></noscript>
 
     <style>
-        /* 极简暗黑科技风加载页 */
         body {
             margin: 0;
             padding: 0;
@@ -37,7 +36,6 @@
             text-align: center;
         }
 
-        /* 呼吸加载圈 */
         .spinner {
             width: 50px;
             height: 50px;
@@ -53,35 +51,16 @@
             100% { transform: rotate(360deg); }
         }
 
-        h2 {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
+        h2 { font-size: 20px; font-weight: 500; margin-bottom: 10px; letter-spacing: 0.5px; }
+        p { font-size: 14px; color: #8b9bb4; margin-bottom: 30px; padding: 0 20px;}
 
-        p {
-            font-size: 14px;
-            color: #8b9bb4;
-            margin-bottom: 30px;
-        }
-
-        /* 兜底手动跳转按钮（默认隐藏，超时后显示） */
         #fallback-btn {
-            display: none;
-            background-color: #00ff66;
-            color: #000;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-            transition: all 0.3s;
+            display: none; background-color: #00ff66; color: #000;
+            padding: 14px 28px; border-radius: 50px; text-decoration: none;
+            font-weight: bold; font-size: 16px; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,255,102,0.3);
         }
-
-        #fallback-btn:hover {
-            background-color: #33ff85;
-        }
+        #fallback-btn:hover { background-color: #33ff85; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -90,16 +69,16 @@
     <h2>Redirecting to WhatsApp...</h2>
     <p>Please wait while we connect you to your assigned strategist.</p>
     
-    <a href="#" id="fallback-btn">Click here if not redirected</a>
+    <a href="#" id="fallback-btn">Open WhatsApp Manually</a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // 1. 客服号码池（可随时增减）
+            // 1. 客服号码池
             const whatsappPool = [
                 { phone: "61450078293", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
                 { phone: "61451494563", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
-                { phone: "61451442595", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }   
+                { phone: "61451442595", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }  
             ];
 
             // 2. 24小时防撞单分配缓存
@@ -125,21 +104,21 @@
                 localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
             }
 
-            // 3. 构建 WhatsApp 唤醒长链
             const targetPhone = selectedTarget.phone;
             const encodedText = encodeURIComponent(selectedTarget.text);
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const isFacebook = (userAgent.indexOf("FBAN") > -1) || (userAgent.indexOf("FBAV") > -1);
             const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
             
-            let finalUrl = (isFacebook || isMobile) 
-                ? `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}` 
-                : `https://wa.me/${targetPhone}?text=${encodedText}`;
+            // 3. 【核心更新】构建双重唤醒长链
+            // appUrl: 最强穿透力，直接请求系统唤醒 App
+            const appUrl = `whatsapp://send?phone=${targetPhone}&text=${encodedText}`;
+            // webUrl: 官方标准长链，作为退路和 PC 端方案
+            const webUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
 
-            // 将兜底按钮的链接设为最终链接
-            document.getElementById('fallback-btn').href = finalUrl;
+            // 将手动兜底按钮设为最稳妥的 webUrl
+            document.getElementById('fallback-btn').href = webUrl;
 
-            // 4. 【核心】只要客户进入这个分流页，就代表表单填完，立刻触发 Contact 事件
+            // 4. 触发 Contact 事件 (100% 不漏报)
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
                     traffic_source: 'Meta_Lead_Form_Funnel',
@@ -148,18 +127,32 @@
                 console.log("Contact 事件已成功发送给 Meta");
             }
 
-            // 5. 延迟重定向 (1.2 秒)
-            // 作用：让 Meta 像素有足够时间发包，同时规避浏览器对瞬间跳转的拦截
+            // 5. 延迟 1.5 秒后执行强力穿透重定向
             setTimeout(function() {
-                window.location.href = finalUrl;
+                if (isMobile) {
+                    // 移动端：动态创建 A 标签模拟用户点击，暴力穿透 FB 内置浏览器
+                    const link = document.createElement('a');
+                    link.href = appUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // 二级兜底：如果系统强行拦截了原生 intent 协议，1.2秒后用标准链接补救
+                    setTimeout(function() {
+                        window.location.href = webUrl;
+                    }, 1200);
+                } else {
+                    // PC 端：直接使用通用 Web 协议跳转
+                    window.location.href = webUrl;
+                }
             }, 1500);
 
-            // 6. 防失联兜底机制：如果 3 秒后页面还在（跳转被拦截），显示手动点击按钮
+            // 6. 三级防失联兜底：3.5秒后显示手动点击按钮
             setTimeout(function() {
                 document.getElementById('fallback-btn').style.display = 'inline-block';
                 document.querySelector('.spinner').style.display = 'none';
                 document.querySelector('h2').innerText = 'Ready to Connect';
-                document.querySelector('p').innerText = 'Please click the button below to open WhatsApp.';
+                document.querySelector('p').innerText = 'If WhatsApp did not open automatically, please click below.';
             }, 3500);
 
         });
