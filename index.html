@@ -50,7 +50,7 @@
         #manual-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
         #manual-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* 终极兜底：一键复制号码模块 */
+        /* 一键复制号码模块 */
         #copy-module {
             display: none;
             background: rgba(255, 255, 255, 0.05);
@@ -89,7 +89,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // 1. 客服号码池
+            // 1. 获取 URL 参数：精准识别是否在表单环境中
+            const urlParams = new URLSearchParams(window.location.search);
+            const isFormEnv = urlParams.get('env') === 'form';
+
+            // 2. 客服号码池
             const whatsappPool = [
                 { phone: "61450078293", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
                 { phone: "61451494563", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
@@ -118,15 +122,13 @@
                 localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
             }
 
-            // 2. 操作系统嗅探
+            // 3. 操作系统与协议构建
             const targetPhone = selectedTarget.phone;
             const encodedText = encodeURIComponent(selectedTarget.text);
             const ua = navigator.userAgent || navigator.vendor || window.opera;
             const isAndroid = /Android/i.test(ua);
             
-            // 3. 构建底层协议链
             const androidIntent = `intent://send?phone=${targetPhone}&text=${encodedText}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
-            // iOS 和 PC 的通用安全长链 (api.whatsapp 兼容性最好)
             const universalSafeUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
 
             let targetUrl = universalSafeUrl; 
@@ -134,10 +136,10 @@
                 targetUrl = androidIntent; 
             }
             
-            // 将正确的链接绑定到按钮上
+            // 绑定链接到手动按钮
             document.getElementById('manual-btn').href = targetUrl;
 
-            // 配置一键复制功能
+            // 配置一键复制
             document.getElementById('copy-btn').innerText = `Copy Number: +${targetPhone}`;
             document.getElementById('copy-btn').addEventListener('click', function() {
                 const textArea = document.createElement("textarea");
@@ -148,43 +150,47 @@
                     document.execCommand('copy');
                     document.getElementById('copy-btn').innerText = "Copied! Please paste in WhatsApp";
                     document.getElementById('copy-btn').style.background = "rgba(37, 211, 102, 0.2)";
-                } catch (err) {
-                    console.error('Copy failed', err);
-                }
+                } catch (err) {}
                 document.body.removeChild(textArea);
             });
 
-            // 4. 触发 Contact 像素
+            // 4. 触发 Contact 像素 (更精细的数据源划分)
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
-                    traffic_source: 'Meta_Lead_Form_Sandbox_Merged',
+                    traffic_source: isFormEnv ? 'Meta_Lead_Form' : 'Meta_Feed_Direct',
                     assigned_whatsapp: targetPhone
                 });
             }
 
-            // 5. 延迟 1.5 秒：双轨并行执行引擎
+            // 5. 延迟 1.5 秒：智能环境分发引擎
             setTimeout(function() {
                 
-                // --- 轨道一：UI 变化（明面上显示按钮，作为表单沙盒的解药）---
+                // 通用 UI 状态：关闭转圈，显示按钮
                 document.getElementById('loading-spinner').style.display = 'none';
                 document.getElementById('status-title').innerText = 'Connection Ready';
-                document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
-                
                 document.getElementById('manual-btn').style.display = 'inline-flex';
                 document.getElementById('copy-module').style.display = 'block';
 
-                // --- 轨道二：暗中执行自动跳转（为信息流和 PC 端恢复自动拉起功能）---
-                if (isAndroid) {
-                    // 安卓自动穿透
-                    const link = document.createElement('a');
-                    link.href = androidIntent;
-                    document.body.appendChild(link);
-                    link.click();
+                // ============================================
+                // 核心逻辑：判断是否执行自动跳转
+                // ============================================
+                if (isFormEnv) {
+                    // 场景 A：在表单沙盒中 (URL 带 ?env=form)
+                    // 绝对不执行任何跳转！只更改提示文字，逼迫用户手动点击
+                    document.getElementById('status-desc').innerText = 'Please tap the button below to open WhatsApp securely.';
                 } else {
-                    // 恢复 iOS (信息流) 和 PC 端的自动跳转！
-                    // 如果是在信息流里，这句代码会弹出 iOS 的“是否在 WhatsApp 打开”提示。
-                    // 如果是在表单沙盒里，这句代码会被静默拦截，但由于上面的 UI 已经弹出了按钮，用户依然可以手动脱困。
-                    window.location.href = universalSafeUrl;
+                    // 场景 B：在信息流或 PC 端 (URL 不带参数)
+                    // 执行原本的自动唤醒逻辑！
+                    document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
+                    
+                    if (isAndroid) {
+                        const link = document.createElement('a');
+                        link.href = androidIntent;
+                        document.body.appendChild(link);
+                        link.click();
+                    } else {
+                        window.location.href = universalSafeUrl;
+                    }
                 }
                 
             }, 1500);
