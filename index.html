@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connecting to Support...</title>
+    <title>Connecting to Analyst...</title>
     
     <script>
         !function(f,b,e,v,n,t,s)
@@ -15,73 +15,64 @@
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1465362682055475');
-        
-        // 页面一加载，立即触发 PageView
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1465362682055475&ev=PageView&noscript=1"/></noscript>
 
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #05070a;
-            color: #ffffff;
+            margin: 0; padding: 0; background-color: #05070a; color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; text-align: center;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(0, 255, 102, 0.2);
-            border-top: 4px solid #00ff66;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 25px;
+            width: 45px; height: 45px; border: 4px solid rgba(212, 175, 55, 0.2);
+            border-top: 4px solid #d4af37; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 25px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        h2 { font-size: 20px; font-weight: 500; margin-bottom: 10px; letter-spacing: 0.5px; }
-        p { font-size: 14px; color: #8b9bb4; margin-bottom: 30px; padding: 0 20px;}
+        h2 { font-size: 22px; font-weight: 500; margin-bottom: 15px; }
+        p { font-size: 15px; color: #8b9bb4; margin-bottom: 35px; padding: 0 20px; max-width: 400px; line-height: 1.5; }
 
-        #fallback-btn {
-            display: none; background-color: #00ff66; color: #000;
-            padding: 14px 28px; border-radius: 50px; text-decoration: none;
-            font-weight: bold; font-size: 16px; transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,255,102,0.3);
+        /* 修改为显眼的强引导按钮 */
+        #manual-btn {
+            display: none; background-color: #25D366; color: #fff;
+            padding: 16px 32px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 17px; transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        #fallback-btn:hover { background-color: #33ff85; transform: translateY(-2px); }
+        #manual-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
+        #manual-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        
+        .loading-text { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="spinner"></div>
-    <h2>Redirecting to WhatsApp...</h2>
-    <p>Please wait while we connect you to your assigned strategist.</p>
+    <div class="spinner" id="loading-spinner"></div>
+    <h2 id="status-title">Authenticating...</h2>
+    <p id="status-desc" class="loading-text">Preparing your secure connection to the analyst.</p>
     
-    <a href="#" id="fallback-btn">Open WhatsApp Manually</a>
+    <a href="#" id="manual-btn" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.571-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Open WhatsApp Now
+    </a>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // 1. 客服号码池
+            // 1. 客服号码池（分配逻辑保持不变）
             const whatsappPool = [
-                { phone: "61450078293", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
-                { phone: "61451494563", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }, 
-                { phone: "61451442595", text: "Hi! I'm ready to upgrade my trading. I'd like access to the VIP inner circle and 1-on-1 expert guidance. How do I start?" }  
+                { phone: "61450078293", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
+                { phone: "61451494563", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
+                { phone: "61451442595", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }   
             ];
 
-            // 2. 24小时防撞单分配缓存
             const LOCK_DURATION = 180 * 24 * 60 * 60 * 1000; 
             const now = new Date().getTime();
             let selectedTarget = null;
@@ -104,56 +95,56 @@
                 localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
             }
 
+            // 2. 环境判断
             const targetPhone = selectedTarget.phone;
             const encodedText = encodeURIComponent(selectedTarget.text);
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isAndroid = /Android/i.test(ua);
+            const isIOS = /iPad|iPhone|iPod/i.test(ua);
+
+            // 3. 【核心技术】构建操作系统级别的底层协议唤醒链接
             
-            // 3. 【核心更新】构建双重唤醒长链
-            // appUrl: 最强穿透力，直接请求系统唤醒 App
-            const appUrl = `whatsapp://send?phone=${targetPhone}&text=${encodedText}`;
-            // webUrl: 官方标准长链，作为退路和 PC 端方案
-            const webUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
+            // 安卓专属: Intent 协议强制呼叫底层包名，撕裂 FB 沙盒
+            const androidIntent = `intent://send?phone=${targetPhone}&text=${encodedText}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+            
+            // iOS 专属: 原生 Scheme 直接唤醒，防网页劫持
+            const iosScheme = `whatsapp://send?phone=${targetPhone}&text=${encodedText}`;
+            
+            // PC 端与保底: 官方 API
+            const webUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
 
-            // 将手动兜底按钮设为最稳妥的 webUrl
-            document.getElementById('fallback-btn').href = webUrl;
+            // 根据设备赋予最强穿透链接
+            let ultimateUrl = webUrl;
+            if (isAndroid) {
+                ultimateUrl = androidIntent;
+            } else if (isIOS) {
+                ultimateUrl = iosScheme;
+            }
 
-            // 4. 触发 Contact 事件 (100% 不漏报)
+            // 将强力链接绑定到手动按钮上
+            document.getElementById('manual-btn').href = ultimateUrl;
+
+            // 4. 触发 Contact 事件
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
                     traffic_source: 'Meta_Lead_Form_Funnel',
                     assigned_whatsapp: targetPhone
                 });
-                console.log("Contact 事件已成功发送给 Meta");
             }
 
-            // 5. 延迟 1.5 秒后执行强力穿透重定向
+            // 5. 执行跳转逻辑：给足 1.5 秒让 Meta 发包
             setTimeout(function() {
-                if (isMobile) {
-                    // 移动端：动态创建 A 标签模拟用户点击，暴力穿透 FB 内置浏览器
-                    const link = document.createElement('a');
-                    link.href = appUrl;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-
-                    // 二级兜底：如果系统强行拦截了原生 intent 协议，1.2秒后用标准链接补救
-                    setTimeout(function() {
-                        window.location.href = webUrl;
-                    }, 1200);
-                } else {
-                    // PC 端：直接使用通用 Web 协议跳转
-                    window.location.href = webUrl;
-                }
+                // 尝试一次自动重定向（虽然可能被部分严格的机型拦截，但不妨一试）
+                window.location.href = ultimateUrl;
+                
+                // 【关键体验优化】：无论自动跳转是否成功，1.5 秒后立即展示手动点击按钮
+                // 此时，如果系统阻止了自动跳转，用户看到绿色的按钮，用手指主动点击（获取浏览器最高权限），100% 成功拉起！
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('status-title').innerText = 'Connection Ready';
+                document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
+                document.getElementById('manual-btn').style.display = 'inline-flex';
+                
             }, 1500);
-
-            // 6. 三级防失联兜底：3.5秒后显示手动点击按钮
-            setTimeout(function() {
-                document.getElementById('fallback-btn').style.display = 'inline-block';
-                document.querySelector('.spinner').style.display = 'none';
-                document.querySelector('h2').innerText = 'Ready to Connect';
-                document.querySelector('p').innerText = 'If WhatsApp did not open automatically, please click below.';
-            }, 3500);
 
         });
     </script>
