@@ -28,45 +28,68 @@
         }
 
         .spinner {
-            width: 45px; height: 45px; border: 4px solid rgba(212, 175, 55, 0.2);
-            border-top: 4px solid #d4af37; border-radius: 50%;
+            width: 45px; height: 45px; border: 4px solid rgba(37, 211, 102, 0.2);
+            border-top: 4px solid #25D366; border-radius: 50%;
             animation: spin 1s linear infinite; margin-bottom: 25px;
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         h2 { font-size: 22px; font-weight: 500; margin-bottom: 15px; }
-        p { font-size: 15px; color: #8b9bb4; margin-bottom: 35px; padding: 0 20px; max-width: 400px; line-height: 1.5; }
+        p { font-size: 15px; color: #8b9bb4; margin-bottom: 25px; padding: 0 20px; max-width: 400px; line-height: 1.5; }
 
-        /* 修改为显眼的强引导按钮 */
+        /* 主力唤醒按钮 */
         #manual-btn {
             display: none; background-color: #25D366; color: #fff;
             padding: 16px 32px; border-radius: 8px; text-decoration: none;
             font-weight: 600; font-size: 17px; transition: all 0.3s;
             box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            align-items: center; justify-content: center; gap: 10px;
+            margin-bottom: 20px;
         }
         #manual-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
         #manual-btn svg { width: 22px; height: 22px; fill: currentColor; }
-        
-        .loading-text { display: block; }
+
+        /* 终极兜底：一键复制号码模块 */
+        #copy-module {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 350px;
+            width: 90%;
+        }
+        #copy-module p { margin-bottom: 15px; padding: 0; font-size: 14px; color: #cbd5e1; }
+        #copy-btn {
+            background: transparent; color: #25D366; border: 1px solid #25D366;
+            padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; width: 100%;
+        }
+        #copy-btn:hover { background: rgba(37, 211, 102, 0.1); }
+        #copy-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
     <div class="spinner" id="loading-spinner"></div>
     <h2 id="status-title">Authenticating...</h2>
-    <p id="status-desc" class="loading-text">Preparing your secure connection to the analyst.</p>
+    <p id="status-desc">Preparing your secure connection to the analyst.</p>
     
-    <a href="#" id="manual-btn" style="display: none;">
+    <a href="#" id="manual-btn" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.571-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         Open WhatsApp Now
     </a>
 
+    <div id="copy-module">
+        <p>If the button above does not open WhatsApp, please copy our number and message us directly:</p>
+        <button id="copy-btn">Copy Number</button>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // 1. 客服号码池（分配逻辑保持不变）
+            // 1. 客服号码池
             const whatsappPool = [
                 { phone: "61450078293", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
                 { phone: "61451494563", text: "Hi! I just completed the questionnaire. I would like to receive the free Weekly Digital Economy & Macro Report." }, 
@@ -95,55 +118,76 @@
                 localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
             }
 
-            // 2. 环境判断
+            // 2. 操作系统嗅探
             const targetPhone = selectedTarget.phone;
             const encodedText = encodeURIComponent(selectedTarget.text);
             const ua = navigator.userAgent || navigator.vendor || window.opera;
             const isAndroid = /Android/i.test(ua);
             const isIOS = /iPad|iPhone|iPod/i.test(ua);
 
-            // 3. 【核心技术】构建操作系统级别的底层协议唤醒链接
-            
-            // 安卓专属: Intent 协议强制呼叫底层包名，撕裂 FB 沙盒
+            // 3. 构建底层协议链 (针对表单沙盒特化)
             const androidIntent = `intent://send?phone=${targetPhone}&text=${encodedText}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
-            
-            // iOS 专属: 原生 Scheme 直接唤醒，防网页劫持
-            const iosScheme = `whatsapp://send?phone=${targetPhone}&text=${encodedText}`;
-            
-            // PC 端与保底: 官方 API
-            const webUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
+            // 注意：iOS 放宽协议要求，使用 api.whatsapp.com 配合 target="_blank" 迫使沙盒移交权限给 Safari
+            const iosSafeUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
 
-            // 根据设备赋予最强穿透链接
-            let ultimateUrl = webUrl;
+            let targetUrl = iosSafeUrl; 
             if (isAndroid) {
-                ultimateUrl = androidIntent;
-            } else if (isIOS) {
-                ultimateUrl = iosScheme;
+                targetUrl = androidIntent; 
             }
+            
+            document.getElementById('manual-btn').href = targetUrl;
 
-            // 将强力链接绑定到手动按钮上
-            document.getElementById('manual-btn').href = ultimateUrl;
+            // 配置一键复制功能
+            document.getElementById('copy-btn').innerText = `Copy Number: +${targetPhone}`;
+            document.getElementById('copy-btn').addEventListener('click', function() {
+                // 使用老式与新式 API 结合，确保 iOS 兼容性
+                const textArea = document.createElement("textarea");
+                textArea.value = `+${targetPhone}`;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    document.getElementById('copy-btn').innerText = "Copied! Please paste in WhatsApp";
+                    document.getElementById('copy-btn').style.background = "rgba(37, 211, 102, 0.2)";
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            });
 
-            // 4. 触发 Contact 事件
+            // 4. 触发 Contact 像素
             if (typeof fbq === 'function') {
                 fbq('track', 'Contact', {
-                    traffic_source: 'Meta_Lead_Form_Funnel',
+                    traffic_source: 'Meta_Lead_Form_Sandbox',
                     assigned_whatsapp: targetPhone
                 });
             }
 
-            // 5. 执行跳转逻辑：给足 1.5 秒让 Meta 发包
+            // 5. 延迟 1.5 秒：双端分治执行
             setTimeout(function() {
-                // 尝试一次自动重定向（虽然可能被部分严格的机型拦截，但不妨一试）
-                window.location.href = ultimateUrl;
-                
-                // 【关键体验优化】：无论自动跳转是否成功，1.5 秒后立即展示手动点击按钮
-                // 此时，如果系统阻止了自动跳转，用户看到绿色的按钮，用手指主动点击（获取浏览器最高权限），100% 成功拉起！
                 document.getElementById('loading-spinner').style.display = 'none';
                 document.getElementById('status-title').innerText = 'Connection Ready';
-                document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
-                document.getElementById('manual-btn').style.display = 'inline-flex';
                 
+                if (isIOS) {
+                    // iOS 专属提示与兜底展示
+                    document.getElementById('status-desc').innerText = 'Please tap the button below to open WhatsApp securely.';
+                    document.getElementById('manual-btn').style.display = 'inline-flex';
+                    // 额外显示复制兜底，防止极端的沙盒拦截
+                    document.getElementById('copy-module').style.display = 'block';
+                } else {
+                    document.getElementById('status-desc').innerText = 'If WhatsApp did not open automatically, please tap the button below.';
+                    document.getElementById('manual-btn').style.display = 'inline-flex';
+                }
+
+                if (isAndroid) {
+                    // 安卓继续尝试自动强行穿透
+                    const link = document.createElement('a');
+                    link.href = androidIntent;
+                    document.body.appendChild(link);
+                    link.click();
+                }
+                
+                // iOS 不尝试自动跳转，强制依赖用户真实点击 manual-btn 触发 target="_blank"
             }, 1500);
 
         });
