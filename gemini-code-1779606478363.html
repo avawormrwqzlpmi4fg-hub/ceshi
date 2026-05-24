@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connecting to Analyst...</title>
+    
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1465362682055475');
+        fbq('track', 'PageView'); 
+        // 注意：这里去掉了 Contact 事件，只保留 PageView
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1465362682055475&ev=PageView&noscript=1"/></noscript>
+
+    <style>
+        body {
+            margin: 0; padding: 0; background-color: #05070a; color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; text-align: center;
+        }
+
+        .spinner {
+            width: 45px; height: 45px; border: 4px solid rgba(37, 211, 102, 0.2);
+            border-top: 4px solid #25D366; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 25px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        h2 { font-size: 22px; font-weight: 600; margin-bottom: 15px; transition: color 0.3s; }
+        
+        p#status-desc { 
+            font-size: 16px; color: #8b9bb4; margin-bottom: 30px; 
+            padding: 0 20px; max-width: 420px; line-height: 1.6; 
+        }
+        
+        /* 强调用语样式 */
+        strong { color: #ffffff; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; }
+
+        /* 主力唤醒按钮 */
+        #manual-btn {
+            display: none; background-color: #25D366; color: #fff;
+            padding: 16px 32px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 17px; transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            align-items: center; justify-content: center; gap: 10px;
+            margin-bottom: 25px; width: 80%; max-width: 300px;
+        }
+        #manual-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
+        #manual-btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+        /* 一键复制号码模块 */
+        #copy-module {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 350px;
+            width: 90%;
+        }
+        #copy-module p { margin-bottom: 15px; padding: 0; font-size: 14px; color: #94a3b8; line-height: 1.5; }
+        #copy-btn {
+            background: transparent; color: #25D366; border: 1px solid #25D366;
+            padding: 12px 20px; border-radius: 6px; font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; width: 100%;
+        }
+        #copy-btn:hover { background: rgba(37, 211, 102, 0.1); }
+        #copy-btn:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <div class="spinner" id="loading-spinner"></div>
+    <h2 id="status-title">Authenticating...</h2>
+    <p id="status-desc">Preparing your secure connection to the analyst.</p>
+    
+    <a href="#" id="manual-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.571-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Open WhatsApp Now
+    </a>
+
+    <div id="copy-module">
+        <p>If the button above is blocked by your browser, please copy our number to message us directly:</p>
+        <button id="copy-btn">Copy Number</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. 客服号码池 (可统一修改进线语)
+            const whatsappPool = [
+                { phone: "61450078293", text: "Hi! I just completed the questionnaire. I'm ready to start my 1-on-1 strategy session." }, 
+                { phone: "61451494563", text: "Hi! I just completed the questionnaire. I'm ready to start my 1-on-1 strategy session." }, 
+                { phone: "61451442595", text: "Hi! I just completed the questionnaire. I'm ready to start my 1-on-1 strategy session." }   
+            ];
+
+            // 2. 24小时防撞单分配缓存
+            const LOCK_DURATION = 180 * 24 * 60 * 60 * 1000; 
+            const now = new Date().getTime();
+            let selectedTarget = null;
+            const cachedShuntData = localStorage.getItem('wa_assigned_client');
+            
+            if (cachedShuntData) {
+                try {
+                    const parsedData = JSON.parse(cachedShuntData);
+                    if (now - parsedData.timestamp < LOCK_DURATION) {
+                        selectedTarget = parsedData.target;
+                    }
+                } catch (err) {
+                    localStorage.removeItem('wa_assigned_client');
+                }
+            }
+
+            if (!selectedTarget) {
+                const randomIndex = Math.floor(Math.random() * whatsappPool.length);
+                selectedTarget = whatsappPool[randomIndex];
+                localStorage.setItem('wa_assigned_client', JSON.stringify({ target: selectedTarget, timestamp: now }));
+            }
+
+            // 3. 操作系统精确嗅探 (用于生成链接和回传 user_os 参数)
+            const targetPhone = selectedTarget.phone;
+            const encodedText = encodeURIComponent(selectedTarget.text);
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const isAndroid = /Android/i.test(ua);
+            
+            let userOS = 'Other';
+            if (isAndroid) userOS = 'Android';
+            else if (/iPad|iPhone|iPod/i.test(ua)) userOS = 'iOS';
+            else if (/Mac/i.test(ua)) userOS = 'Mac';
+            else if (/Windows/i.test(ua)) userOS = 'Windows';
+
+            // 4. 构建底层协议链 (针对表单沙盒特化)
+            const androidIntent = `intent://send?phone=${targetPhone}&text=${encodedText}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+            const universalSafeUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
+
+            let targetUrl = universalSafeUrl; 
+            if (isAndroid) {
+                targetUrl = androidIntent; 
+            }
+            
+            // 绑定链接到手动跳转按钮
+            const manualBtn = document.getElementById('manual-btn');
+            manualBtn.href = targetUrl;
+
+            // ==========================================
+            // 5. 【核心重构】基于点击动作的精准 Contact 追踪
+            // ==========================================
+            let eventFired = false;
+            function fireContactEvent() {
+                if (!eventFired && typeof fbq === 'function') {
+                    fbq('track', 'Contact', {
+                        traffic_source: 'Meta_Lead_Form_Manual', // 标记为手动纯净版流量
+                        assigned_whatsapp: targetPhone,          // 记录分发到的客服
+                        user_os: userOS,                         // 记录用户的操作系统
+                        action_source: 'website'                 // Meta 官方标准字段，提升匹配质量
+                    });
+                    eventFired = true; 
+                    console.log("Contact Event Fired Successfully.");
+                }
+            }
+
+            // 用户点击“打开按钮”时触发回传
+            manualBtn.addEventListener('click', function() {
+                fireContactEvent();
+            });
+
+            // 配置一键复制功能，并在用户点击“复制”时同样触发回传
+            const copyBtn = document.getElementById('copy-btn');
+            copyBtn.innerText = `Copy Number: +${targetPhone}`;
+            copyBtn.addEventListener('click', function() {
+                fireContactEvent(); // 复制动作也代表了极强的添加意愿，算作转化
+                
+                const textArea = document.createElement("textarea");
+                textArea.value = `+${targetPhone}`;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    copyBtn.innerText = "Copied! Please paste in WhatsApp";
+                    copyBtn.style.background = "rgba(37, 211, 102, 0.2)";
+                    copyBtn.style.color = "#fff";
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            });
+
+            // ==========================================
+            // 6. UI 更新 (彻底关闭自动跳转，完全手动)
+            // ==========================================
+            setTimeout(function() {
+                document.getElementById('loading-spinner').style.display = 'none';
+                
+                // 更换高警示度的标题
+                const statusTitle = document.getElementById('status-title');
+                statusTitle.innerText = '⚠️ IMPORTANT STEP:';
+                statusTitle.style.color = '#fcd34d'; // 变成醒目的警告金色
+                
+                // 更换极其清晰的强引导文案 (使用了版本 4)
+                document.getElementById('status-desc').innerHTML = 'Click the button below and hit <strong>SEND</strong> in WhatsApp to start your 1-on-1 strategy session.';
+                
+                // 同时显示 跳转按钮 与 复制模块
+                manualBtn.style.display = 'inline-flex';
+                document.getElementById('copy-module').style.display = 'block';
+                
+            }, 1500);
+
+        });
+    </script>
+</body>
+</html>
